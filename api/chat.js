@@ -22,16 +22,27 @@ export default async function handler(req, res) {
     if (!r.ok) {
       return res.status(r.status).json({
         error: data?.error?.message || "OpenAI request failed",
-        details: data,
       });
     }
 
-    // ✅ 这里我们把 output_text 和一小段 output 也返回，方便你看到到底有没有内容
-    return res.status(200).json({
-      text: data.output_text ?? "",
-      debug_has_output_text: Boolean(data.output_text),
-      debug_output_preview: Array.isArray(data.output) ? data.output.slice(0, 1) : data.output,
-    });
+    // ✅ 正确取文本：优先 output_text，不行就从 output[].content[] 拼出来
+    let text = data.output_text;
+
+    if (!text && Array.isArray(data.output)) {
+      const chunks = [];
+      for (const item of data.output) {
+        if (item?.type === "message" && Array.isArray(item.content)) {
+          for (const c of item.content) {
+            if (c?.type === "output_text" && typeof c.text === "string") {
+              chunks.push(c.text);
+            }
+          }
+        }
+      }
+      text = chunks.join("\n").trim();
+    }
+
+    return res.status(200).json({ text: text || "" });
   } catch (e) {
     return res.status(500).json({ error: e?.message || "Server error" });
   }
