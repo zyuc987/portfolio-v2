@@ -7,6 +7,8 @@ import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import AIChat from "./pages/AIChat";
 
+import AIFloatingWidget from "./components/AIFloatingWidget";
+
 export default function App() {
   const location = useLocation();
   const hideNavbar = location.pathname === "/";
@@ -25,6 +27,9 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
+
+      {/* ✅ Global floating AI assistant (appears on every page) */}
+      <AIFloatingWidget />
     </div>
   );
 }

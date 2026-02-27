@@ -894,3 +894,121 @@ h2{
 
 .suggestBtn:hover{ transform: translateY(-1px); }
 .suggestBtn:disabled{ opacity:.55; cursor:not-allowed; transform:none; }
+.aiFloatBtn{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.85);
+  cursor: pointer;
+  font-weight: 700;
+  z-index: 9999;
+}
+
+.aiFloatPanel{
+  position: fixed;
+  right: 18px;
+  bottom: 82px;
+  width: 360px;
+  max-width: calc(100vw - 36px);
+  height: 520px;
+  max-height: calc(100vh - 120px);
+  border-radius: 18px;
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+}
+
+.aiFloatHeader{
+  padding: 12px 12px 8px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+
+.aiFloatTitle{ font-weight: 700; }
+.aiFloatSub{ font-size: 12px; opacity: .7; margin-top: 2px; }
+
+.aiFloatClear{
+  border: 0;
+  background: transparent;
+  text-decoration: underline;
+  cursor: pointer;
+  opacity: .8;
+}
+.aiFloatClear:disabled{ opacity:.4; cursor:not-allowed; }
+
+.aiFloatSuggestRow{
+  padding: 10px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+.aiFloatSuggestBtn{
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.65);
+  border-radius: 999px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.aiFloatSuggestBtn:disabled{ opacity:.5; cursor:not-allowed; }
+
+.aiFloatChat{
+  padding: 12px;
+  overflow: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.aiFloatBubble{
+  max-width: 85%;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: rgba(255,255,255,.75);
+  line-height: 1.35;
+  font-size: 13px;
+}
+.aiFloatBubble.user{
+  align-self: flex-end;
+}
+.aiFloatBubble.ai{
+  align-self: flex-start;
+}
+
+.aiFloatInputRow{
+  padding: 10px 12px;
+  display: flex;
+  gap: 8px;
+  border-top: 1px solid rgba(0,0,0,.08);
+}
+.aiFloatInputRow input{
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.12);
+  outline: none;
+  background: rgba(255,255,255,.75);
+}
+.aiFloatInputRow button{
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.85);
+  cursor: pointer;
+}
+.aiFloatInputRow button:disabled{ opacity:.6; cursor:not-allowed; }
