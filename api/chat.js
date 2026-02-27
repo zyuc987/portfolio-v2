@@ -1,7 +1,5 @@
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
   try {
     const { message } = req.body || {};
@@ -28,8 +26,13 @@ export default async function handler(req, res) {
       });
     }
 
-    return res.status(200).json({ text: data.output_text ?? "" });
-  } catch (err) {
-    return res.status(500).json({ error: err?.message || "Server error" });
+    // ✅ 这里我们把 output_text 和一小段 output 也返回，方便你看到到底有没有内容
+    return res.status(200).json({
+      text: data.output_text ?? "",
+      debug_has_output_text: Boolean(data.output_text),
+      debug_output_preview: Array.isArray(data.output) ? data.output.slice(0, 1) : data.output,
+    });
+  } catch (e) {
+    return res.status(500).json({ error: e?.message || "Server error" });
   }
 }
