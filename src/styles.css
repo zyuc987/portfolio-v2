@@ -1,0 +1,876 @@
+/* ============ Base ============ */
+:root{
+  --bg0: #f6fbff;
+  --bg1: #eef7ff;
+  --ink: #0f172a;
+  --muted: rgba(15, 23, 42, .68);
+
+  --card: rgba(255,255,255,.70);
+  --card2: rgba(255,255,255,.55);
+  --border: rgba(15, 23, 42, .10);
+
+  --blue: #4aa3ff;
+  --blue2:#2f86ff;
+  --blueSoft: rgba(74,163,255,.16);
+
+  --shadow: 0 18px 50px rgba(15, 23, 42, .10);
+  --shadow2: 0 10px 26px rgba(15, 23, 42, .08);
+
+  --r-lg: 22px;
+  --r-md: 16px;
+}
+
+*{ box-sizing:border-box; }
+html, body{ height:100%; }
+body{
+  margin:0;
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  background:
+    radial-gradient(1200px 700px at 20% 10%, rgba(74,163,255,.18), transparent 60%),
+    radial-gradient(900px 600px at 85% 20%, rgba(100,220,255,.16), transparent 55%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+}
+
+a{ color:inherit; text-decoration:none; }
+button, input{ font:inherit; }
+::selection{ background: rgba(74,163,255,.25); }
+
+/* Layout */
+.app{ min-height:100vh; }
+
+/* ============ Navbar ============ */
+.nav{
+  position: sticky; top: 0; z-index: 10;
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 14px 18px;
+  margin: 14px auto 0;
+  width: min(1040px, calc(100% - 28px));
+  border-radius: var(--r-lg);
+  background: rgba(255,255,255,.55);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow2);
+  backdrop-filter: blur(10px);
+}
+
+.nav__brand{
+  display:flex; align-items:center; gap:10px;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+.nav__brand::before{
+  content:"";
+  width: 12px; height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--blue), #7dd3fc);
+  box-shadow: 0 0 0 6px rgba(74,163,255,.12);
+}
+
+.nav__links{ display:flex; gap: 10px; flex-wrap: wrap; }
+
+.nav__links a{
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  color: rgba(15,23,42,.80);
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+
+.nav__links a:hover{
+  background: rgba(74,163,255,.10);
+  border-color: rgba(74,163,255,.20);
+  transform: translateY(-1px);
+}
+
+.nav__links a.active{
+  background: rgba(74,163,255,.16);
+  border-color: rgba(74,163,255,.26);
+  color: rgba(15,23,42,.92);
+}
+
+/* ============ Home ============ */
+.home{
+  min-height: calc(100vh - 24px);
+  display:grid;
+  place-items:center;
+  padding: 32px 18px 48px;
+}
+
+.home__card{
+  width: min(820px, 96vw);
+  padding: clamp(22px, 4vw, 40px);
+  border-radius: calc(var(--r-lg) + 8px);
+  background: linear-gradient(180deg, var(--card), var(--card2));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle glossy accent */
+.home__card::before{
+  content:"";
+  position:absolute;
+  inset: -80px -140px auto auto;
+  width: 420px; height: 240px;
+  background: radial-gradient(circle at 30% 30%, rgba(74,163,255,.22), transparent 60%);
+  transform: rotate(18deg);
+}
+
+.home__name{
+  position: relative;
+  margin: 0 0 10px;
+  font-size: clamp(34px, 5vw, 54px);
+  line-height: 1.05;
+  letter-spacing: -0.6px;
+}
+
+.home__subtitle{
+  position: relative;
+  margin: 0 0 22px;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+.enterBtn{
+  position: relative;
+  display:inline-flex; align-items:center; gap: 10px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(74,163,255,.28);
+  background: linear-gradient(135deg, rgba(74,163,255,.18), rgba(125,211,252,.18));
+  cursor:pointer;
+  box-shadow: 0 10px 22px rgba(74,163,255,.14);
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+.enterBtn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px rgba(74,163,255,.20);
+  filter: saturate(1.05);
+}
+.enterBtn:active{ transform: translateY(0px) scale(.99); }
+
+.enterIcon{
+  width: 34px; height: 34px;
+  display:grid; place-items:center;
+  border-radius: 999px;
+  background: rgba(255,255,255,.65);
+  border: 1px solid rgba(74,163,255,.20);
+}
+
+/* ============ Page / Cards / Grid ============ */
+.page{
+  padding: 22px 18px 42px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+h2{
+  margin: 14px 0 14px;
+  font-size: 28px;
+  letter-spacing: -0.3px;
+}
+
+.card{
+  padding: 16px;
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.50));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow2);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.card h3{ margin: 0 0 8px; }
+.card p{ margin: 0 0 8px; color: rgba(15,23,42,.80); }
+.muted{ color: var(--muted); font-size: 14px; }
+
+/* ============ Chat UI ============ */
+.chatBox{
+  height: 380px;
+  overflow:auto;
+  border-radius: var(--r-lg);
+  padding: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.55);
+  box-shadow: var(--shadow2);
+}
+
+.bubble{
+  max-width: 82%;
+  padding: 10px 12px;
+  border-radius: 16px;
+  margin-bottom: 10px;
+  line-height: 1.35;
+  border: 1px solid rgba(15,23,42,.08);
+  box-shadow: 0 8px 18px rgba(15,23,42,.06);
+}
+
+.bubble.user{
+  margin-left:auto;
+  background: linear-gradient(135deg, rgba(74,163,255,.22), rgba(125,211,252,.22));
+}
+
+.bubble.ai{
+  margin-right:auto;
+  background: rgba(255,255,255,.78);
+}
+
+.chatInput{
+  display:flex; gap: 10px;
+  margin-top: 12px;
+}
+
+.chatInput input{
+  flex:1;
+  padding: 12px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(15,23,42,.12);
+  background: rgba(255,255,255,.72);
+  outline:none;
+  box-shadow: 0 10px 18px rgba(15,23,42,.05);
+}
+.chatInput input:focus{
+  border-color: rgba(74,163,255,.45);
+  box-shadow: 0 0 0 4px rgba(74,163,255,.18);
+}
+
+.chatInput button{
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(74,163,255,.28);
+  background: linear-gradient(135deg, rgba(74,163,255,.20), rgba(125,211,252,.20));
+  cursor:pointer;
+  transition: transform .15s ease;
+}
+.chatInput button:hover{ transform: translateY(-1px); }
+.chatInput button:active{ transform: translateY(0px); }
+
+/* ============ Small screens ============ */
+@media (max-width: 520px){
+  .nav{ padding: 12px 12px; }
+  .nav__links{ gap: 6px; }
+  .nav__links a{ padding: 7px 10px; }
+}
+.chipBtn{
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(74,163,255,.28);
+  background: rgba(255,255,255,.6);
+  cursor: pointer;
+  box-shadow: 0 10px 18px rgba(15,23,42,.05);
+}
+.chipBtn:hover{
+  background: rgba(74,163,255,.10);
+}
+/* ====== UI Upgrades ====== */
+.brandDot{
+  width: 12px; height: 12px; border-radius: 999px;
+  background: linear-gradient(135deg, var(--blue), #7dd3fc);
+  box-shadow: 0 0 0 6px rgba(74,163,255,.12);
+  display:inline-block;
+}
+
+.navBtn{
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+.navBtn:hover{
+  background: rgba(74,163,255,.10);
+  border-color: rgba(74,163,255,.20);
+  transform: translateY(-1px);
+}
+.navBtn.active{
+  background: rgba(74,163,255,.16);
+  border-color: rgba(74,163,255,.26);
+}
+
+.pill{
+  display:inline-flex; align-items:center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(74,163,255,.12);
+  border: 1px solid rgba(74,163,255,.20);
+  color: rgba(15,23,42,.85);
+  font-size: 13px;
+}
+.miniLine{
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, rgba(74,163,255,.30), transparent);
+}
+
+.home__top{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.home__actions{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.primaryBtn{
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(74,163,255,.35);
+  background: linear-gradient(135deg, rgba(74,163,255,.26), rgba(125,211,252,.22));
+  cursor:pointer;
+  box-shadow: 0 14px 26px rgba(74,163,255,.18);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.primaryBtn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px rgba(74,163,255,.22);
+}
+.primaryBtn:active{ transform: translateY(0px) scale(.99); }
+
+.ghostBtn{
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(15,23,42,.12);
+  background: rgba(255,255,255,.70);
+  cursor:pointer;
+  box-shadow: 0 10px 18px rgba(15,23,42,.05);
+  transition: transform .15s ease, background .15s ease;
+}
+.ghostBtn:hover{
+  transform: translateY(-1px);
+  background: rgba(74,163,255,.10);
+}
+
+.home__stats{
+  margin-top: 22px;
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 12px;
+}
+.stat{
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(255,255,255,.55);
+  border: 1px solid rgba(15,23,42,.10);
+}
+.statNum{ font-weight: 800; font-size: 18px; }
+.statTxt{ color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+.aboutGrid{
+  display:grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: 14px;
+}
+.aboutHero{
+  display:flex;
+  gap: 16px;
+  align-items:flex-start;
+}
+.avatar{
+  width: 72px; height: 72px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(74,163,255,.24), rgba(125,211,252,.20));
+  border: 1px solid rgba(74,163,255,.25);
+  display:grid; place-items:center;
+  font-weight: 900;
+}
+.tagRow{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.tag{
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(74,163,255,.20);
+  background: rgba(74,163,255,.10);
+  font-size: 13px;
+}
+.list{
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: rgba(15,23,42,.82);
+}
+.projectCard .projectTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+}
+.badge{
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(125,211,252,.20);
+  border: 1px solid rgba(74,163,255,.22);
+  font-size: 12px;
+  color: rgba(15,23,42,.80);
+}
+.projectActions{
+  display:flex;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 860px){
+  .aboutGrid{ grid-template-columns: 1fr; }
+}
+/* ===== Welcome Page (bg.jpg + tx.jpg + fade in) ===== */
+.welcome{
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.30)),
+    url("/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.welcome__panel{
+  width: min(760px, 94vw);
+  padding: 40px 44px 34px;
+  border-radius: 22px;
+  text-align: center;
+
+  background: rgba(170, 176, 188, 0.82);
+  border: 1px solid rgba(255,255,255,.24);
+  box-shadow: 0 22px 60px rgba(0,0,0,.22);
+  backdrop-filter: blur(10px);
+
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.welcome__panel.is-visible{
+  animation: welcomePanelIn .7s ease forwards;
+}
+@keyframes welcomePanelIn{
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp{
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.welcome__avatarWrap{
+  display:flex;
+  justify-content:center;
+  margin-top: 2px;
+  margin-bottom: 12px;
+
+  opacity: 0;
+  transform: translateY(8px);
+}
+.welcome__panel.is-visible .welcome__avatarWrap{
+  animation: fadeUp .7s ease forwards;
+  animation-delay: .10s;
+}
+
+.welcome__avatar{
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  border: 3px solid rgba(255,255,255,.90);
+  box-shadow: 0 12px 30px rgba(0,0,0,.18);
+  background: rgba(255,255,255,.18);
+  overflow: hidden;
+}
+.welcome__avatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.welcome__name{
+  margin: 0 0 10px;
+  font-size: 44px;
+  letter-spacing: -0.3px;
+  color: rgba(255,255,255,.96);
+
+  opacity: 0;
+  transform: translateY(8px);
+}
+.welcome__panel.is-visible .welcome__name{
+  animation: fadeUp .7s ease forwards;
+  animation-delay: .18s;
+}
+
+.welcome__line{
+  margin: 6px 0;
+  font-size: 18px;
+  color: rgba(255,255,255,.92);
+
+  opacity: 0;
+  transform: translateY(8px);
+}
+.welcome__line--muted{
+  color: rgba(255,255,255,.78);
+}
+.welcome__panel.is-visible .welcome__line{
+  animation: fadeUp .7s ease forwards;
+  animation-delay: .26s;
+}
+
+.welcome__divider{
+  height: 1px;
+  width: 72%;
+  margin: 16px auto 14px;
+  background: rgba(255,255,255,.30);
+
+  opacity: 0;
+  transform: translateY(8px);
+}
+.welcome__panel.is-visible .welcome__divider{
+  animation: fadeUp .7s ease forwards;
+  animation-delay: .34s;
+}
+
+.welcome__text{
+  margin: 8px 0;
+  font-size: 18px;
+  color: rgba(255,255,255,.92);
+
+  opacity: 0;
+  transform: translateY(8px);
+}
+.welcome__panel.is-visible .welcome__text{
+  animation: fadeUp .7s ease forwards;
+  animation-delay: .42s;
+}
+
+.welcome__enterBtn{
+  margin-top: 18px;
+  padding: 12px 30px;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+
+  background: rgba(255,255,255,.92);
+  color: rgba(15,23,42,.88);
+  font-weight: 800;
+
+  box-shadow: 0 14px 30px rgba(0,0,0,.18);
+  transition: transform .15s ease, box-shadow .15s ease;
+
+  opacity: 0;
+  transform: translateY(8px);
+}
+.welcome__panel.is-visible .welcome__enterBtn{
+  animation: fadeUp .7s ease forwards;
+  animation-delay: .54s;
+}
+.welcome__enterBtn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(0,0,0,.22);
+}
+.welcome__enterBtn:active{
+  transform: translateY(0) scale(.99);
+}
+
+@media (max-width: 520px){
+  .welcome__panel{ padding: 22px 18px 18px; }
+  .welcome__name{ font-size: 30px; }
+}
+/* ===== Global Background for all pages ===== */
+.siteBg{
+  min-height: 100vh;
+  position: relative;
+
+  background:
+    url("/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* 关键：背景遮罩，让内容更清晰 */
+.siteBg::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+
+  /* 你可以微调这几个数：越大越清晰 */
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,.35)),
+    radial-gradient(900px 520px at 25% 10%, rgba(255,255,255,.30), transparent 60%),
+    radial-gradient(900px 520px at 85% 20%, rgba(0,0,0,.12), transparent 60%);
+  backdrop-filter: blur(2px);
+}
+
+/* 确保页面内容在遮罩之上 */
+.siteBg > *{
+  position: relative;
+  z-index: 1;
+}
+
+/* 给路由内容一点居中与留白 */
+.routeShell{
+  min-height: 100vh;
+  padding: 24px;
+  display: grid;
+}
+/* ===== Route fade-in (every page switch) ===== */
+.routeShell{
+  opacity: 0;
+  transform: translateY(10px);
+  animation: routeIn .55s ease forwards;
+}
+
+@keyframes routeIn{
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Welcome uses global bg now ===== */
+.welcome{
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+
+  /* 覆盖之前 welcome 自己的背景（让它跟全站一致） */
+  background: transparent !important;
+}
+
+/* Enter click leaving animation */
+.welcome__panel.is-leaving{
+  animation: panelOut .48s ease forwards;
+}
+
+@keyframes panelOut{
+  to{
+    opacity: 0;
+    transform: translateY(8px) scale(.98);
+    filter: blur(2px);
+  }
+}
+/* ===== Make content blocks whiter & more solid (NOT welcome page) ===== */
+.card{
+  background: rgba(255, 255, 255, 0.96) !important;   /* 更白、更实 */
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 22px 55px rgba(15, 23, 42, 0.16) !important;
+  backdrop-filter: none !important;                   /* 去掉玻璃感，变“实” */
+}
+/* ===== Bigger content cards (About/Projects/Contact/AI) ===== */
+.page{
+  max-width: 1100px;          /* 内容区域更宽 */
+}
+
+.grid{
+  gap: 18px;                  /* 卡片之间距离更舒服 */
+}
+
+.card{
+  padding: 22px 24px !important;   /* 卡片更大 */
+  border-radius: 22px !important;
+}
+
+.card h3{
+  font-size: 24px;
+}
+
+.card p{
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Projects 的标题（h2）也大一点 */
+.page h2{
+  font-size: 38px;
+  margin: 18px 0 18px;
+}
+
+/* 让按钮大一点 */
+.primaryBtn, .ghostBtn{
+  padding: 14px 20px;
+  font-size: 18px;
+  border-radius: 999px;
+}
+
+/* tag/徽章大一点（如果你页面有用到 tag/badge） */
+.tag{
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.badge{
+  padding: 8px 12px;
+  font-size: 13px;
+}
+/* ===== Projects cards become long horizontal strips ===== */
+
+/* 让 Projects 页面里的 grid 变成 1 列，卡片自然变长条 */
+.page .grid{
+  grid-template-columns: 1fr !important;
+  max-width: 980px;          /* 卡片区域更宽 */
+  margin: 0 auto;
+}
+
+/* 卡片更扁、更像长条 */
+.page .grid .card{
+  padding: 24px 28px !important;
+  border-radius: 26px !important;
+}
+
+/* 让卡片内容更“横向”一点（标题/徽章一行，按钮一行） */
+.projectTop{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.projectActions{
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* ===== Contact: 3 cards in one row (responsive) ===== */
+.contactGrid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+/* 小屏自动变竖排 */
+@media (max-width: 820px){
+  .contactGrid{
+    grid-template-columns: 1fr;
+  }
+}
+/* ===== Make Projects cards wider ===== */
+
+/* 1) Projects 页整体内容区域更宽 */
+.projectsPage{
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 2) Projects 的卡片列表不要再限制 980px */
+.projectsGrid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+/* 3) 卡片本身撑满父容器 */
+.projectsGrid .card{
+  width: 100%;
+}
+/* ===== Projects: make cards wider & long-strip ===== */
+.projectsPage{
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.projectsGrid{
+  display: grid;
+  grid-template-columns: 1fr;   /* 一行一个，长条 */
+  gap: 18px;
+}
+
+.projectsGrid .card{
+  width: 100%;
+}
+/* ===== FORCE Projects cards to be wider ===== */
+.page.projectsPage{
+  max-width: 1400px !important;
+  width: 95vw !important;
+  margin: 0 auto !important;
+}
+
+.page.projectsPage .projectsGrid{
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 18px !important;
+
+  /* 关键：取消你之前可能加过的 max-width 限制 */
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.page.projectsPage .projectsGrid .card{
+  width: 100% !important;
+}
+.avatar{
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(74,163,255,.25);
+  background: rgba(255,255,255,.6);
+  display: grid;
+  place-items: center;
+}
+
+.avatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* fix avatar distortion */
+.avatar{
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.avatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  /* 关键：不变形 */
+  display: block;
+}
+/* ===== FORCE About avatar to stay square (fix squashed) ===== */
+.aboutHero .avatar{
+  width: 88px !important;
+  height: 88px !important;
+  flex: 0 0 88px !important;   /* 不允许被拉伸 */
+  border-radius: 999px !important;
+  overflow: hidden !important;
+  display: block !important;
+}
+
+.aboutHero .avatar img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important; /* 不变形裁切 */
+  object-position: center !important;
+  display: block !important;
+}
+/* 让卡片内容按列排版，按钮自然在下面 */
+.card{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 左对齐 */
+}
+
+/* 防止按钮被 absolute 定位带跑，顺便统一成按钮样式 */
+.ghostBtn,
+.primaryBtn{
+  position: static !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin-top: 12px;
+}
