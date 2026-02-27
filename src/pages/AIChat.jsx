@@ -10,9 +10,7 @@ export default function AIChat() {
   const listRef = useRef(null);
 
   useEffect(() => {
-    if (listRef.current) {
-      listRef.current.scrollTop = listRef.current.scrollHeight;
-    }
+    if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
   }, [messages, loading]);
 
   const send = async () => {
@@ -33,7 +31,8 @@ export default function AIChat() {
       const data = await r.json();
       if (!r.ok) throw new Error(data?.error || "Request failed");
 
-      setMessages((prev) => [...prev, { role: "ai", text: data.reply }]);
+      const botText = data.text ?? data.reply ?? "(No reply)";
+      setMessages((prev) => [...prev, { role: "ai", text: botText }]);
     } catch (e) {
       setMessages((prev) => [
         ...prev,
@@ -64,11 +63,7 @@ export default function AIChat() {
           </div>
         ))}
 
-        {loading && (
-          <div className="bubble ai">
-            Thinking…
-          </div>
-        )}
+        {loading && <div className="bubble ai">Thinking…</div>}
       </div>
 
       <div className="chatInput">
