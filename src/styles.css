@@ -874,3 +874,23 @@ h2{
   width: fit-content;
   margin-top: 12px;
 }
+
+.suggestRow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.suggestBtn{
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.65);
+  border-radius: 999px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1.2;
+  transition: transform .08s ease, opacity .12s ease;
+}
+
+.suggestBtn:hover{ transform: translateY(-1px); }
+.suggestBtn:disabled{ opacity:.55; cursor:not-allowed; transform:none; }

@@ -2,22 +2,31 @@ import { useEffect, useRef, useState } from "react";
 
 export default function AIChat() {
   const [messages, setMessages] = useState([
-    { role: "ai", text: "Hi! I’m your portfolio assistant. Ask me anything 🙂" },
+    { role: "ai", text: "Hi! I’m Yuchen Zhou’s portfolio assistant. Ask me anything 🙂" },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
   const listRef = useRef(null);
 
+  const suggested = [
+    "What projects have you built? Give me a quick overview.",
+    "What are your strongest technical skills?",
+    "Summarize your background in 3 bullet points.",
+    "Which project best demonstrates AI/ML skills and why?",
+    "How can I contact you? Provide links and email.",
+    "What technologies did you use to build this portfolio website?",
+  ];
+
   useEffect(() => {
     if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
   }, [messages, loading]);
 
-  const send = async () => {
-    const text = input.trim();
-    if (!text || loading) return;
+  const sendMessage = async (text) => {
+    const clean = (text || "").trim();
+    if (!clean || loading) return;
 
-    setMessages((prev) => [...prev, { role: "user", text }]);
+    setMessages((prev) => [...prev, { role: "user", text: clean }]);
     setInput("");
     setLoading(true);
 
@@ -25,10 +34,9 @@ export default function AIChat() {
       const r = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text }),
+        body: JSON.stringify({ message: clean }),
       });
 
-      // ✅ 更稳：先读文本，再尝试解析 JSON
       const raw = await r.text();
       let data;
       try {
@@ -37,20 +45,23 @@ export default function AIChat() {
         data = { error: raw || "Non-JSON response" };
       }
 
-      if (!r.ok) {
-        throw new Error(data?.error || `Request failed (${r.status})`);
-      }
+      if (!r.ok) throw new Error(data?.error || `Request failed (${r.status})`);
 
-      const botText = data.text ?? data.reply ?? "(No reply)";
+      const botText = (data.text ?? data.reply ?? "").trim() || "⚠️ No text returned from AI.";
       setMessages((prev) => [...prev, { role: "ai", text: botText }]);
     } catch (e) {
-      setMessages((prev) => [
-        ...prev,
-        { role: "ai", text: `⚠️ Error: ${e.message}` },
-      ]);
+      setMessages((prev) => [...prev, { role: "ai", text: `⚠️ Error: ${e.message}` }]);
     } finally {
       setLoading(false);
     }
+  };
+
+  const send = async () => {
+    await sendMessage(input);
+  };
+
+  const ask = async (q) => {
+    await sendMessage(q);
   };
 
   const clearChat = () => {
@@ -59,18 +70,27 @@ export default function AIChat() {
 
   return (
     <div className="page">
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 12,
-        }}
-      >
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
         <h2 style={{ margin: 0 }}>AI Assistant</h2>
         <button onClick={clearChat} className="chipBtn" type="button">
           Clear
         </button>
+      </div>
+
+      {/* ✅ Suggested Questions */}
+      <div className="suggestRow" style={{ marginTop: 10 }}>
+        {suggested.map((q) => (
+          <button
+            key={q}
+            className="suggestBtn"
+            type="button"
+            onClick={() => ask(q)}
+            disabled={loading}
+            title="Click to ask"
+          >
+            {q}
+          </button>
+        ))}
       </div>
 
       <div className="chatBox" ref={listRef} style={{ marginTop: 12 }}>
