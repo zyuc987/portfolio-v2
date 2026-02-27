@@ -28,8 +28,18 @@ export default function AIChat() {
         body: JSON.stringify({ message: text }),
       });
 
-      const data = await r.json();
-      if (!r.ok) throw new Error(data?.error || "Request failed");
+      // ✅ 更稳：先读文本，再尝试解析 JSON
+      const raw = await r.text();
+      let data;
+      try {
+        data = JSON.parse(raw);
+      } catch {
+        data = { error: raw || "Non-JSON response" };
+      }
+
+      if (!r.ok) {
+        throw new Error(data?.error || `Request failed (${r.status})`);
+      }
 
       const botText = data.text ?? data.reply ?? "(No reply)";
       setMessages((prev) => [...prev, { role: "ai", text: botText }]);
@@ -49,7 +59,14 @@ export default function AIChat() {
 
   return (
     <div className="page">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 12,
+        }}
+      >
         <h2 style={{ margin: 0 }}>AI Assistant</h2>
         <button onClick={clearChat} className="chipBtn" type="button">
           Clear
